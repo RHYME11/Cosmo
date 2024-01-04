@@ -9,23 +9,23 @@ from Cosmo import Cosmo
 #          with a certain npnh configuration + spin + binding energy
 # input: isotope(string), npnh(string), spin(string), (binding) energy(double)
 # return a variable in "Cosmo" class
-def Extract(isotope='', npnh='', spin='', energy='', opt=True):
-#def Extract(opt=True):
+#def Extract(isotope='', npnh='', spin='', energy='', opt=True):
+def Extract(isotope, npnh, spin, energy, opt=True):
   
   if(opt):
     isotope = input("isotope(eg. 31Na): ")
     npnh    = input("npnh(eg. 0p0h): ")
     spin    = input("spin(eg. 5/2) =  ")
     energy  = input("binding energy (MeV): ")
-    
-  if len(isotope) == 0 or opt == 0:
-    isotope = '31Na'
-  if len(npnh) == 0 or opt == 0:
-    npnh = '0p0h'
-  if len(spin) == 0 or opt == 0:
-    spin = '5/2'
-  if len(energy) == 0 or opt == 0:
-    energy = '0'
+    if len(isotope) == 0 or opt == 0:
+      isotope = '31Na'
+    if len(npnh) == 0 or opt == 0:
+      npnh = '0p0h'
+    if len(spin) == 0 or opt == 0:
+      spin = '5/2'
+    if len(energy) == 0 or opt == 0:
+      energy = '0'
+  
   energy = float(energy)
 
   orbitals = []
@@ -91,6 +91,8 @@ def Draw():
     spin = '5/2'
   if len(energy) == 0:
     energy = '0'
+  
+  print(f"isotope = {isotope}")
 
   state = Extract(isotope, npnh, spin, energy,0)
   state.Draw()

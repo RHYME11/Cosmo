@@ -33,7 +33,7 @@ def Comparison(state0='', state1='', opt=True):
     if len(npnh1) == 0:
       npnh1 = '0p0h'
     if len(spin1) == 0:
-      spin1 = '3/2'
+      spin1 = '5/2'
     if len(energy1) == 0:
       energy1 = '0'
     state1 = ex.Extract(isotope1, npnh1, spin1, energy1,0)
