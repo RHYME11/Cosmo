@@ -1,14 +1,14 @@
 import numpy as np
 import re
 import matplotlib.pyplot as plt
-from Cosmo import Cosmo
+from State import State
 
 
 ##############################################################
 # Extract: extract orbital occupation for a specific state in one isotope 
 #          with a certain npnh configuration + spin + binding energy
 # input: isotope(string), npnh(string), spin(string), (binding) energy(double)
-# return a variable in "Cosmo" class
+# return a variable in "State" class
 #def Extract(isotope='', npnh='', spin='', energy='', opt=True):
 def Extract(isotope, npnh, spin, energy, opt=True):
   
@@ -60,7 +60,7 @@ def Extract(isotope, npnh, spin, energy, opt=True):
       Z = np.append(Z,float(matches[2]))
   file.close
 
-  shell = Cosmo(
+  shell = State(
       isotope,
       npnh,
       J,

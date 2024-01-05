@@ -3,7 +3,7 @@ import re
 import matplotlib.pyplot as plt
 
 
-class Cosmo:
+class State:
     def __init__(self, isotope, npnh, J, pi, E, orbitals, arrN, arrZ):
         self.isotope  = isotope
         self.npnh     = npnh
