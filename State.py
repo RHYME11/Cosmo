@@ -18,8 +18,8 @@ class State:
         bar_width = 0.2
         index = np.arange(len(self.orbitals))
         fig, ax = plt.subplots()
-        ax.bar(index,             self.arrN, width=bar_width, label='N', color='skyblue')
-        ax.bar(index + bar_width, self.arrZ, width=bar_width, label='Z', color='orangered')
+        Zbars = ax.bar(index,             self.arrZ, width=bar_width, label='Z', color='orangered')
+        Nbars = ax.bar(index + bar_width, self.arrN, width=bar_width, label='N', color='skyblue')
         ax.set_title(f'{self.isotope} {self.npnh} Jpi={self.J}{self.pi} at E={self.E}')
         ax.legend()
         ax.set_xticks(index + bar_width/2, self.orbitals)
@@ -32,4 +32,13 @@ class State:
         for tick in np.arange(0, 9, 1):
             ax.axhline(y=tick, color='gray', linestyle='--', linewidth=0.5)
         plt.show(block=False)
+        
+        for bar in Zbars:
+          height = bar.get_height()
+          ax.text(bar.get_x() + bar.get_width() / 2, height+0.1, str(height), ha='center', va='bottom', rotation=90, fontsize=8, color="orangered")
+        for bar in Nbars:
+          height = bar.get_height()
+          ax.text(bar.get_x() + bar.get_width() / 2, height+0.1, str(height), ha='center', va='bottom', rotation=90, fontsize=8, color="skyblue")
+        
+
         return fig, ax

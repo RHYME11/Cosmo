@@ -4,7 +4,9 @@ import matplotlib.pyplot as plt
 from State import State
 
 
-
+#Compare two states;
+#They can be from different files;
+#Currently, files must be saved in the same folder;
 def Comparison(state0='', state1='', opt=True):
 
   #Input info for two states
@@ -46,8 +48,8 @@ def Comparison(state0='', state1='', opt=True):
   
   fig, (ax_left, ax_right) = plt.subplots(1, 2, figsize=(12, 4))
   
-  ax_left.bar(index - bar_width/2, state0.arrN, bar_width, label='N', color='skyblue')
-  ax_left.bar(index + bar_width/2, state0.arrZ, bar_width, label='Z', color='orangered')
+  ZbarsI = ax_left.bar(index - bar_width/2, state0.arrZ, bar_width, label='Z', color='orangered')
+  NbarsI = ax_left.bar(index + bar_width/2, state0.arrN, bar_width, label='N', color='skyblue')
   ax_left.set_title(f'Initial State: {state0.isotope} {state0.npnh} Jpi = {state0.J}{state0.pi} at E = {state0.E}')
   ax_left.set_xticks(index)
   ax_left.set_xticklabels(state0.orbitals)
@@ -56,15 +58,49 @@ def Comparison(state0='', state1='', opt=True):
       ax_left.axhline(y=tick, color='gray', linestyle='--', linewidth=0.5)
   ax_left.legend()
 
-  ax_right.bar(index - bar_width/2, state1.arrN, bar_width, label='N', color='skyblue')
-  ax_right.bar(index + bar_width/2, state1.arrZ, bar_width, label='Z', color='orangered')
+  ZbarsF = ax_right.bar(index - bar_width/2, state1.arrZ, bar_width, label='Z', color='orangered')
+  NbarsF = ax_right.bar(index + bar_width/2, state1.arrN, bar_width, label='N', color='skyblue')
   ax_right.set_title(f'Final State: {state1.isotope} {state1.npnh} Jpi = {state1.J}{state1.pi} at E = {state1.E}')
   ax_right.set_xticks(index)
   ax_right.set_xticklabels(state1.orbitals)
   ax_right.set_yticks(np.arange(0, 9, 1))
+  
   for tick in np.arange(0, 9, 1):
       ax_right.axhline(y=tick, color='gray', linestyle='--', linewidth=0.5)
   ax_right.legend()
+
+  for bar in ZbarsI:
+    height = bar.get_height()
+    ax_left.text(bar.get_x() + bar.get_width() / 2, height+0.1, str(height), ha='center', va='bottom', rotation=90, fontsize=8, color="orangered")
+  for bar in NbarsI:
+    height = bar.get_height()
+    ax_left.text(bar.get_x() + bar.get_width() / 2, height+0.1, str(height), ha='center', va='bottom', rotation=90, fontsize=8, color="skyblue")
+  for bar in ZbarsF:
+    height = bar.get_height()
+    ax_right.text(bar.get_x() + bar.get_width() / 2, height+0.1, str(height), ha='center', va='bottom', rotation=90, fontsize=8, color="orangered")
+  for bar in NbarsF:
+    height = bar.get_height()
+    ax_right.text(bar.get_x() + bar.get_width() / 2, height+0.1, str(height), ha='center', va='bottom', rotation=90, fontsize=8, color="skyblue")
+
+
+  # Draw the difference between state0 and state1 on neutron and proton occupation
+  dN = state1.arrN - state0.arrN
+  dZ = state1.arrZ - state0.arrZ
+  dfig, dax = plt.subplots()
+  ZbarsD = dax.bar(index,             dZ, width=bar_width, label='Z', color='orangered')
+  NbarsD = dax.bar(index + bar_width, dN, width=bar_width, label='N', color='skyblue')
+  dax.set_title(f'Final State({state1.isotope} {state1.npnh} {state1.J}{state1.pi}) - Initial State({state0.isotope} {state0.npnh} {state0.J}{state0.pi})')
+  dax.legend()
+  dax.set_xticks(index + bar_width/2, state0.orbitals)        
+  for tick in plt.yticks()[0]:
+      dax.axhline(y=tick, color='gray', linestyle='--', linewidth=0.5)
+
+  #for bar in ZbarsD:
+  #  height = bar.get_height()
+  #  dax.text(bar.get_x() + bar.get_width() / 2, height*1.1, str(height), ha='center', va='bottom', rotation=90, fontsize=8, color="orangered")
+  #for bar in NbarsD:
+  #  height = bar.get_height()
+  #  dax.text(bar.get_x() + bar.get_width() / 2, height*1.1, str(height), ha='center', va='bottom', rotation=90, fontsize=8, color="skyblue")
 
   plt.show(block=False)
 

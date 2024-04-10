@@ -36,7 +36,7 @@ def Extract(isotope, npnh, spin, energy, opt=True):
   state_end   = '</state>'
   occupation = 'occupation'
     
-  file = open(f"/Users/yiyizhu/Desktop/e18035/CoSMo/{isotope}/{isotope}-{npnh}.txt","r")
+  file = open(f"/Users/yiyizhu/Desktop/e18035/CoSMo/Yiyi/{isotope}/{isotope}_{npnh}.txt","r")
   while True:
     content = file.readline()     
     if state_end in content:            
