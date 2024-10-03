@@ -117,7 +117,7 @@ def Input():
     
   return isotope_symbol, isotope_A, energy, jpi
 
-
+#=======================================================================================#
 #def Draw_LS():
 isotope, A, energy, jpi = Input()
 sort_energy = split_array_by_none(energy)
